@@ -14,24 +14,26 @@ public class JogoDaVelhaV3 {
         }
     }
 
-    static void verifyWinner (char tabuleiro[][]) {
+    static int verifyWinner (char tabuleiro[][]) {
+        int vencedor = 0; // 1 == 'X' venceu.     2 == 'O' venceu.
+
         for (int i = 0; i < 3; i++) {
 
             //Verify horizontally 0 / 1 / 2   -   3 / 4 / 5   -   6 / 7 / 8
             if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2]) {
                 if (tabuleiro[i][0] == 'X') {
-                    System.out.println("O jogador X venceu.");
+                    vencedor = 1;
                 } else if (tabuleiro[i][0] == 'o'){
-                    System.out.println("O jogador O venceu.");
+                    vencedor = 2;
                 }
             }
 
             //Verify vertically
             if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i]){
                 if (tabuleiro[0][i] == 'X') {
-                    System.out.println("O jogador X venceu.");
+                    vencedor = 1;
                 } else if (tabuleiro[0][i] == 'o'){
-                    System.out.println("O jogador O venceu.");
+                    vencedor = 2;
                 }
             }
 
@@ -40,18 +42,28 @@ public class JogoDaVelhaV3 {
                     tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0]) {
 
                 if (tabuleiro[1][1] == 'X') {
-                    System.out.println("O jogador X venceu.");
+                    vencedor = 1;
                 } else if (tabuleiro[1][1] == 'o'){
-                    System.out.println("O jogador O venceu.");
+                    vencedor = 2;
                 }
             }
         }
+
+        if (vencedor == 1) {
+            System.out.println("Parabéns, jogador X venceu!!");
+        } else if (vencedor == 2) {
+            System.out.println("Parabéns, jogador O venceu!!");
+        } else {
+            System.out.println("Nenhum jogador venceu!! Deu empate");
+        }
+
+        return (vencedor);
     }
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         char tabuleiro[][] = new char[3][3];
-        int posicaoLinha, posicaoColuna, jogador = 1, jogadas = 1;
+        int posicaoLinha, posicaoColuna, jogador = 1, jogadas = 1, vencedor = 3;
 
 
         System.out.println("=================== Bem vindo ao Jogo da Velha ===================");
@@ -95,10 +107,10 @@ public class JogoDaVelhaV3 {
             printTabuleiro(tabuleiro);
 
             if (jogadas > 5) {
-                verifyWinner(tabuleiro);
+                vencedor = verifyWinner(tabuleiro);
             }  else if (jogadas > 9) {
                 System.out.println("Empate.");
             }
-        } while (true);
+        } while (jogadas < 9 && vencedor == 3);
     }
 }
