@@ -18,7 +18,6 @@ public class JogoDaVelhaV3 {
         int vencedor = 0; // 1 == 'X' venceu.     2 == 'O' venceu.
 
         for (int i = 0; i < 3; i++) {
-
             //Verify horizontally 0 / 1 / 2   -   3 / 4 / 5   -   6 / 7 / 8
             if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2]) {
                 if (tabuleiro[i][0] == 'X') {
@@ -76,27 +75,31 @@ public class JogoDaVelhaV3 {
 
         do {
             if (jogador == 1) {
+                System.out.println("Vez do jogador 1!!");
                 System.out.println("Informe a Linha: ");
                 posicaoLinha = scan.nextInt();
                 System.out.println("Informe a Coluna: ");
                 posicaoColuna = scan.nextInt();
+                System.out.println();
 
-                if (posicaoColuna > 2 || posicaoLinha > 2) {
-                    System.out.println("Informe um valor de linha e coluna entre 0 e 2.");
+                if (posicaoColuna > 2 || posicaoLinha > 2 || tabuleiro[posicaoLinha][posicaoColuna] != '-') {
+                    System.out.println("Informe um valor diferente, entre 0 e 2!!");
                 } else {
                     jogadas++;
                     jogador = 2;
                     tabuleiro[posicaoLinha][posicaoColuna] = 'X';
                 }
             } else {
+                System.out.println("Vez do jogador 2!!");
                 System.out.println("Informe a Linha: ");
                 posicaoLinha = scan.nextInt();
                 System.out.println("Informe a Coluna: ");
                 posicaoColuna = scan.nextInt();
+                System.out.println();
 
-                if (posicaoColuna > 2 || posicaoLinha > 2) {
+                if (posicaoColuna > 2 || posicaoLinha > 2 || tabuleiro[posicaoLinha][posicaoColuna] != '-') {
                     System.out.println();
-                    System.out.println("Informe um valor de linha e coluna entre 0 e 2.");
+                    System.out.println("Informe um valor diferente, entre 0 e 2!!");
                 } else {
                     jogadas++;
                     jogador = 1;
@@ -108,8 +111,6 @@ public class JogoDaVelhaV3 {
 
             if (jogadas > 5) {
                 vencedor = verifyWinner(tabuleiro);
-            }  else if (jogadas > 9) {
-                System.out.println("Empate.");
             }
         } while (jogadas < 9 && vencedor == 3);
     }
